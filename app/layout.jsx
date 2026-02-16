@@ -24,11 +24,11 @@ export default function RootLayout({ children }) {
     <NextAuthProvider>
       <html lang="en">
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} bg-gray-900 ${geistMono.variable} antialiased`}
         >
           <Header />
 
-          <div className=" min-h-screen mx-auto px-4 sm:px-6 lg:px-8">
+          <div className=" min-h-screen mt-20 mx-auto px-4 sm:px-6 lg:px-8">
             {children}
           </div>
 
