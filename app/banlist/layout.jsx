@@ -1,8 +1,8 @@
 import React from "react";
 
 export const metadata = {
-  title: "Staples - DUEL NEXUS",
-};
+    title:"Banlist - DUEL NEXUS"
+}
 
 export default function layout({ children }) {
   return <>{children}</>;

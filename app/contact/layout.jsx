@@ -1,7 +1,7 @@
 import React from "react";
 
 export const metadata = {
-  title: "Staples - DUEL NEXUS",
+  title: "Contact - DUEL NEXUS",
 };
 
 export default function layout({ children }) {

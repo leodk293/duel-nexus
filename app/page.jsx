@@ -7,6 +7,7 @@ import {
   yugioh_attributes,
   yugioh_levels,
 } from ".././utils/card_details";
+import { loadPageState, savePageState } from "../utils/pageStateStorage";
 import { nanoid } from "nanoid";
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
@@ -25,23 +26,6 @@ function buildApiUrl({ search, type, race, attribute, level, archetype }) {
   if (archetype) params.set("archetype", archetype);
   const qs = params.toString();
   return qs ? `${API_BASE}?${qs}` : API_BASE;
-}
-
-function storageKey(userId) {
-  return `duel-nexus:filters:${userId ?? "guest"}`;
-}
-function loadUserFilters(userId) {
-  try {
-    const r = localStorage.getItem(storageKey(userId));
-    return r ? JSON.parse(r) : null;
-  } catch {
-    return null;
-  }
-}
-function saveUserFilters(userId, filters) {
-  try {
-    localStorage.setItem(storageKey(userId), JSON.stringify(filters));
-  } catch {}
 }
 
 function HoloCard({ card }) {
@@ -294,8 +278,9 @@ export default function Home() {
       setCardAttribute(u("attribute"));
       setCardLevel(u("level"));
       setCardArchetype(u("archetype"));
+      setVisibleEnd(PAGE_SIZE);
     } else {
-      const s = loadUserFilters(userId);
+      const s = loadPageState(userId);
       if (s) {
         setSearchedCard(s.search ?? "");
         setCardType(s.type ?? "");
@@ -303,6 +288,11 @@ export default function Home() {
         setCardAttribute(s.attribute ?? "");
         setCardLevel(s.level ?? "");
         setCardArchetype(s.archetype ?? "");
+        setVisibleEnd(
+          typeof s.visibleEnd === "number" && s.visibleEnd >= PAGE_SIZE
+            ? s.visibleEnd
+            : PAGE_SIZE
+        );
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -325,7 +315,10 @@ export default function Home() {
   };
 
   useEffect(() => {
-    saveUserFilters(userId, currentFilters);
+    savePageState(userId, {
+      ...currentFilters,
+      visibleEnd,
+    });
     const p = new URLSearchParams();
     Object.entries(currentFilters).forEach(([k, v]) => {
       if (v) p.set(k, v);
@@ -339,6 +332,7 @@ export default function Home() {
     cardAttribute,
     cardLevel,
     cardArchetype,
+    visibleEnd,
   ]);
 
   const fetchCards = useCallback(async (filters) => {

@@ -171,6 +171,10 @@ const yugioh_races = [
         value: "Quick-Play",
     },
     {
+        name: "Equip Spell",
+        value: "Equip",
+    },
+    {
         name: "Field Spell",
         value: "Field",
     },

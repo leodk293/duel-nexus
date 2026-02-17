@@ -1,9 +1,11 @@
 "use client";
 import { useState } from "react";
 import { signIn, signOut, useSession } from "next-auth/react";
+import googleLogo from "../public/google-logo.png";
 import Image from "next/image";
 import Link from "next/link";
 import { nanoid } from "nanoid";
+import { clearPageState } from "../utils/pageStateStorage";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -20,9 +22,18 @@ export default function Header() {
       link: "/staples",
     },
     {
-      name: "Decks",
-      link: "/decks",
+      name: "Banlist",
+      link: "/banlist",
     },
+    // {
+    //   name: "Decks",
+    //   link: "/decks",
+    // },
+    {
+      name: "Contact",
+      link: "/contact",
+    },
+
     {
       name: "Duels",
       link: "/duels",
@@ -165,13 +176,20 @@ export default function Header() {
             {status === "unauthenticated" && (
               <button
                 onClick={() => signIn("google")}
-                className="ygo-cta px-5 py-2 rounded-lg text-[13px] font-extrabold tracking-wide transition-all duration-200 text-[#0a0a1a]"
+                className="ygo-cta flex flex-row gap-1 justify-center items-center px-5 py-2 rounded-lg text-[13px] font-extrabold tracking-wide transition-all duration-200 text-[#0a0a1a]"
                 style={{
                   background: "linear-gradient(135deg, #FFD700, #FFA500)",
                   boxShadow: "0 0 12px rgba(255,215,0,0.35)",
                 }}
               >
-                ⚡ Login
+                <Image
+                  src={googleLogo}
+                  alt="GOOGLE LOGO"
+                  width={20}
+                  height={20}
+                  className=" object-cover"
+                />
+                <p>Login</p>
               </button>
             )}
 
@@ -197,7 +215,12 @@ export default function Header() {
                   </span>
                 </div>
                 <button
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    const userId =
+                      session?.user?.id ?? session?.user?.email ?? null;
+                    clearPageState(userId);
+                    signOut();
+                  }}
                   className="ygo-cta px-5 py-2 rounded-lg text-[13px] font-extrabold tracking-wide transition-all duration-200 text-[#0a0a1a]"
                   style={{
                     background: "linear-gradient(135deg, #FFD700, #FFA500)",
@@ -321,7 +344,12 @@ export default function Header() {
                   </div>
                 </div>
                 <button
-                  onClick={() => signOut()}
+                  onClick={() => {
+                    const userId =
+                      session?.user?.id ?? session?.user?.email ?? null;
+                    clearPageState(userId);
+                    signOut();
+                  }}
                   className="w-full py-3 rounded-lg text-sm font-extrabold tracking-wide text-[#0a0a1a]"
                   style={{
                     background: "linear-gradient(135deg, #FFD700, #FFA500)",
@@ -334,13 +362,20 @@ export default function Header() {
             ) : status === "unauthenticated" ? (
               <button
                 onClick={() => signIn("google")}
-                className="w-full py-3 rounded-lg text-sm font-extrabold tracking-wide text-[#0a0a1a]"
+                className="w-full flex flex-row gap-1 justify-center items-center py-3 rounded-lg text-sm font-extrabold tracking-wide text-[#0a0a1a]"
                 style={{
                   background: "linear-gradient(135deg, #FFD700, #FFA500)",
                   boxShadow: "0 0 12px rgba(255,215,0,0.35)",
                 }}
               >
-                ⚡ Login with Google
+                <Image
+                  src={googleLogo}
+                  alt="GOOGLE LOGO"
+                  width={20}
+                  height={20}
+                  className=" object-cover"
+                />
+                <p>Login</p>
               </button>
             ) : (
               <div
