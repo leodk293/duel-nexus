@@ -373,7 +373,7 @@ export default function Contact() {
             >
               Alternatively, reach us directly at{" "}
               <a
-                href="mailto:contact@duelnexus.com"
+                href="mailto:aboubatraore04@gmail.com"
                 className="font-cinzel tracking-[0.06em] transition-colors duration-200"
                 style={{ color: "rgba(212,175,55,0.6)" }}
                 onMouseEnter={(e) => (e.target.style.color = "#d4af37")}
@@ -381,7 +381,7 @@ export default function Contact() {
                   (e.target.style.color = "rgba(212,175,55,0.6)")
                 }
               >
-                contact@duelnexus.com
+                aboubatraore04@gmail.com
               </a>
             </p>
           </div>

@@ -18,6 +18,10 @@ export default function Header() {
       link: "/",
     },
     {
+      name: "Duel links",
+      link: "/duel-links",
+    },
+    {
       name: "Staples",
       link: "/staples",
     },
@@ -25,19 +29,15 @@ export default function Header() {
       name: "Banlist",
       link: "/banlist",
     },
-    // {
-    //   name: "Decks",
-    //   link: "/decks",
-    // },
     {
       name: "Contact",
       link: "/contact",
     },
 
-    {
-      name: "Duels",
-      link: "/duels",
-    },
+    // {
+    //   name: "Duels",
+    //   link: "/duels",
+    // },
     {
       name: "Community",
       link: "/community",

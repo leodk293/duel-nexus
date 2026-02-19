@@ -5,17 +5,17 @@ import {
   yugioh_races,
   yugioh_attributes,
   yugioh_levels,
-} from ".././utils/card_details";
-import { loadPageState, savePageState } from "../utils/pageStateStorage";
+} from "../../utils/card_details";
+import { loadPageState, savePageState } from "../../utils/pageStateStorage";
 import { nanoid } from "nanoid";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import SkeletonCard from "../components/Skeleton";
-import HoloCard from "../components/HoloCard";
-import GoldSelect from "../components/GoldSelect";
+import SkeletonCard from "../../components/Skeleton";
+import HoloCard from "../../components/HoloCard";
+import GoldSelect from "../../components/GoldSelect";
 
 const PAGE_SIZE = 20;
-const API_BASE = "https://duel-nexus-api.vercel.app/api/cards";
+const API_BASE = "https://duel-nexus-api.vercel.app/api/duel-links";
 
 function buildApiUrl({ search, type, race, attribute, level, archetype }) {
   const params = new URLSearchParams();
@@ -65,7 +65,7 @@ function FilterBadge({ label, onRemove }) {
   );
 }
 
-export default function Home() {
+export default function DuelLinks() {
   const { data: session } = useSession();
   const userId = session?.user?.id ?? session?.user?.email ?? null;
   const router = useRouter();
@@ -308,7 +308,7 @@ export default function Home() {
               marginBottom: "10px",
             }}
           >
-            Card Database
+            Duel links Card Database
           </p>
           <h1
             style={{
@@ -329,7 +329,7 @@ export default function Home() {
               marginBottom: "10px",
             }}
           >
-            Duel Nexus
+            Duel Links
           </h1>
           <p
             style={{

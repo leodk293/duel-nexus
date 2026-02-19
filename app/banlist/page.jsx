@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { nanoid } from "nanoid";
+import SkeletonCard from "../../components/Skeleton";
 
 const formats = ["TCG", "OCG", "GOAT"];
 
@@ -32,12 +33,14 @@ function HoloCard({ card }) {
   function handleMouseLeave() {
     const el = cardRef.current;
     const glow = glowRef.current;
-    if (el) el.style.transform = "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
+    if (el)
+      el.style.transform =
+        "perspective(600px) rotateX(0deg) rotateY(0deg) scale(1)";
     if (glow) glow.style.background = "transparent";
   }
 
   return (
-    <Link href={`/cards/${card.id}`}>
+    <Link href={`/card/${card.id}`}>
       <div
         ref={cardRef}
         onMouseMove={handleMouseMove}
@@ -74,7 +77,8 @@ function HoloCard({ card }) {
         <div
           className="card-name-layer absolute bottom-0 left-0 right-0 px-2 pt-5 pb-2 rounded-b-md z-[4] opacity-0 transition-opacity duration-200 pointer-events-none"
           style={{
-            background: "linear-gradient(to top, rgba(0,0,0,0.92) 60%, transparent)",
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.92) 60%, transparent)",
           }}
         >
           <p
@@ -91,20 +95,6 @@ function HoloCard({ card }) {
         </div>
       </div>
     </Link>
-  );
-}
-
-// ─── Skeleton card ─────────────────────────────────────────────────────────────
-function SkeletonCard() {
-  return (
-    <div
-      className="w-[180px] h-[262px] rounded-md"
-      style={{
-        background: "linear-gradient(135deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02))",
-        border: "1px solid rgba(212,175,55,0.1)",
-        animation: "pulse 1.8s ease-in-out infinite",
-      }}
-    />
   );
 }
 
@@ -159,7 +149,12 @@ function SectionHeading({ children, color }) {
       >
         {children}
       </span>
-      <div className="flex-1 h-px" style={{ background: `linear-gradient(to right, ${color}, transparent)` }} />
+      <div
+        className="flex-1 h-px"
+        style={{
+          background: `linear-gradient(to right, ${color}, transparent)`,
+        }}
+      />
     </div>
   );
 }
@@ -167,12 +162,18 @@ function SectionHeading({ children, color }) {
 // ─── Main component ────────────────────────────────────────────────────────────
 export default function Banlist() {
   const [activeFormat, setActiveFormat] = useState("TCG");
-  const [banlist, setBanlist] = useState({ error: false, loading: false, data: [] });
+  const [banlist, setBanlist] = useState({
+    error: false,
+    loading: false,
+    data: [],
+  });
 
   async function fetchBanlist(format) {
     setBanlist({ error: false, loading: true, data: [] });
     try {
-      const res = await fetch(`https://db.ygoprodeck.com/api/v7/cardinfo.php?banlist=${format}`);
+      const res = await fetch(
+        `https://db.ygoprodeck.com/api/v7/cardinfo.php?banlist=${format}`,
+      );
       if (!res.ok) throw new Error("Fetch failed");
       const result = await res.json();
       setBanlist({ error: false, loading: false, data: result.data });
@@ -254,7 +255,8 @@ export default function Banlist() {
             left: "50%",
             width: "900px",
             height: "900px",
-            background: "radial-gradient(circle, rgba(212,175,55,0.065) 0%, transparent 65%)",
+            background:
+              "radial-gradient(circle, rgba(212,175,55,0.065) 0%, transparent 65%)",
             animation: "orbFloat 9s ease-in-out infinite",
           }}
         />
@@ -265,7 +267,8 @@ export default function Banlist() {
             right: "-350px",
             width: "700px",
             height: "700px",
-            background: "radial-gradient(circle, rgba(60,30,160,0.055) 0%, transparent 65%)",
+            background:
+              "radial-gradient(circle, rgba(60,30,160,0.055) 0%, transparent 65%)",
           }}
         />
         <div
@@ -275,7 +278,8 @@ export default function Banlist() {
             left: "-200px",
             width: "500px",
             height: "500px",
-            background: "radial-gradient(circle, rgba(220,50,50,0.04) 0%, transparent 65%)",
+            background:
+              "radial-gradient(circle, rgba(220,50,50,0.04) 0%, transparent 65%)",
           }}
         />
 
@@ -284,7 +288,10 @@ export default function Banlist() {
           {/* Top rule */}
           <div
             className="w-[120px] h-px mb-6"
-            style={{ background: "linear-gradient(to right, transparent, #d4af37, transparent)" }}
+            style={{
+              background:
+                "linear-gradient(to right, transparent, #d4af37, transparent)",
+            }}
           />
 
           {/* Eyebrow */}
@@ -300,12 +307,14 @@ export default function Banlist() {
             className="font-cinzel font-black text-[clamp(2rem,5vw,3.6rem)] tracking-[0.12em] uppercase mb-2"
             style={{
               color: "transparent",
-              background: "linear-gradient(135deg, #d4af37 0%, #f5e27a 40%, #d4af37 60%, #9a7b1a 100%)",
+              background:
+                "linear-gradient(135deg, #d4af37 0%, #f5e27a 40%, #d4af37 60%, #9a7b1a 100%)",
               backgroundSize: "200% auto",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
-              animation: "shimmer 4s linear infinite, titleGlow 3s ease-in-out infinite",
+              animation:
+                "shimmer 4s linear infinite, titleGlow 3s ease-in-out infinite",
             }}
           >
             Banlist
@@ -323,12 +332,20 @@ export default function Banlist() {
           <div className="flex items-center gap-3 w-full max-w-[860px]">
             <div
               className="flex-1 h-px"
-              style={{ background: "linear-gradient(to right, transparent, rgba(212,175,55,0.3))" }}
+              style={{
+                background:
+                  "linear-gradient(to right, transparent, rgba(212,175,55,0.3))",
+              }}
             />
-            <span style={{ color: "rgba(212,175,55,0.5)", fontSize: "0.7rem" }}>✦</span>
+            <span style={{ color: "rgba(212,175,55,0.5)", fontSize: "0.7rem" }}>
+              ✦
+            </span>
             <div
               className="flex-1 h-px"
-              style={{ background: "linear-gradient(to left, transparent, rgba(212,175,55,0.3))" }}
+              style={{
+                background:
+                  "linear-gradient(to left, transparent, rgba(212,175,55,0.3))",
+              }}
             />
           </div>
         </header>
@@ -450,20 +467,24 @@ export default function Banlist() {
               )}
 
               {/* Empty state */}
-              {banned.length === 0 && limited.length === 0 && semiLimited.length === 0 && (
-                <div className="text-center mt-20">
-                  <div className="text-[2.2rem] mb-3.5">🔮</div>
-                  <p
-                    className="font-cinzel text-[0.78rem] tracking-[0.08em]"
-                    style={{ color: "rgba(212,175,55,0.45)" }}
-                  >
-                    No restricted cards in this format.
-                  </p>
-                </div>
-              )}
+              {banned.length === 0 &&
+                limited.length === 0 &&
+                semiLimited.length === 0 && (
+                  <div className="text-center mt-20">
+                    <div className="text-[2.2rem] mb-3.5">🔮</div>
+                    <p
+                      className="font-cinzel text-[0.78rem] tracking-[0.08em]"
+                      style={{ color: "rgba(212,175,55,0.45)" }}
+                    >
+                      No restricted cards in this format.
+                    </p>
+                  </div>
+                )}
 
               {/* End message */}
-              {(banned.length > 0 || limited.length > 0 || semiLimited.length > 0) && (
+              {(banned.length > 0 ||
+                limited.length > 0 ||
+                semiLimited.length > 0) && (
                 <p
                   className="font-cinzel text-[0.58rem] tracking-[0.18em] uppercase text-center py-9 mt-8"
                   style={{ color: "rgba(212,175,55,0.28)" }}
