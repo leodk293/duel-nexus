@@ -38,10 +38,10 @@ export default function Header() {
     //   name: "Duels",
     //   link: "/duels",
     // },
-    {
-      name: "Community",
-      link: "/community",
-    },
+    // {
+    //   name: "Community",
+    //   link: "/community",
+    // },
   ];
 
   return (
@@ -176,7 +176,7 @@ export default function Header() {
             {status === "unauthenticated" && (
               <button
                 onClick={() => signIn("google")}
-                className="ygo-cta flex flex-row gap-1 justify-center items-center px-5 py-2 rounded-lg text-[13px] font-extrabold tracking-wide transition-all duration-200 text-[#0a0a1a]"
+                className="ygo-cta cursor-pointer flex flex-row gap-1 justify-center items-center px-5 py-2 rounded-lg text-[13px] font-extrabold tracking-wide transition-all duration-200 text-[#0a0a1a]"
                 style={{
                   background: "linear-gradient(135deg, #FFD700, #FFA500)",
                   boxShadow: "0 0 12px rgba(255,215,0,0.35)",
@@ -221,7 +221,7 @@ export default function Header() {
                     clearPageState(userId);
                     signOut();
                   }}
-                  className="ygo-cta px-5 py-2 rounded-lg text-[13px] font-extrabold tracking-wide transition-all duration-200 text-[#0a0a1a]"
+                  className="ygo-cta cursor-pointer px-5 py-2 rounded-lg text-[13px] font-extrabold tracking-wide transition-all duration-200 text-[#0a0a1a]"
                   style={{
                     background: "linear-gradient(135deg, #FFD700, #FFA500)",
                     boxShadow: "0 0 12px rgba(255,215,0,0.35)",

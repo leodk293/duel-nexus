@@ -8,7 +8,7 @@ import {
 } from "../../utils/card_details";
 import { loadPageState, savePageState } from "../../utils/pageStateStorage";
 import { nanoid } from "nanoid";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import SkeletonCard from "../../components/Skeleton";
 import HoloCard from "../../components/HoloCard";
@@ -65,7 +65,7 @@ function FilterBadge({ label, onRemove }) {
   );
 }
 
-export default function DuelLinks() {
+function DuelLinksContent() {
   const { data: session } = useSession();
   const userId = session?.user?.id ?? session?.user?.email ?? null;
   const router = useRouter();
@@ -722,5 +722,28 @@ export default function DuelLinks() {
         </main>
       </div>
     </>
+  );
+}
+
+export default function DuelLinks() {
+  return (
+    <Suspense
+      fallback={
+        <div
+          style={{
+            minHeight: "60vh",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontFamily: "'Cinzel', serif",
+            color: "var(--gold)",
+          }}
+        >
+          Loading…
+        </div>
+      }
+    >
+      <DuelLinksContent />
+    </Suspense>
   );
 }
