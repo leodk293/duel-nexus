@@ -38,8 +38,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return true;
     },
 
+    // async jwt({ token, user }) {
+    //   if (user) {
+    //     await connectMongoDB();
+    //     const dbUser = await User.findOne({ email: user.email });
+    //     if (dbUser) {
+    //       token.id = dbUser._id.toString();
+    //       token.name = dbUser.name;
+    //       token.email = dbUser.email;
+    //       token.avatarUrl = dbUser.avatarUrl;
+    //     }
+    //   }
+    //   return token;
+    // },
+
     async jwt({ token, user }) {
-      if (user) {
+      if (user?.email) {
         await connectMongoDB();
         const dbUser = await User.findOne({ email: user.email });
         if (dbUser) {
